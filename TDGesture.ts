@@ -171,8 +171,27 @@ namespace TDGesture {
         }
         return false;
     }
-
-
+    
+     basic.forever(function () {
+        let Gespin = pins.digitalReadPin(<number>UsePin)
+        //let Gespin = pins.digitalReadPin(DigitalPin.P0)
+        if (Gespin == 0) {
+            let cmd = i2c1_MasterRead(26, 0x42);
+            switch (cmd) {
+                case whichPose.CCW:
+                case whichPose.CW:
+                case whichPose.Down:
+                case whichPose.Left:
+                case whichPose.Right:
+                case whichPose.Up:
+                    Status = cmd;
+                    break;
+                default:
+                    break;
+            }
+        }
+    })
+    
 }
 
 
